@@ -19,6 +19,5 @@ const resolvers = require("./resolvers");
 const server = new ApolloServer({ typeDefs, resolvers });
 
 // Run Server
-server.listen().then(({ url }) => {
-  console.log(`Server ready at ${url}`);
-});
+const PORT = process.env.PORT || 4000;
+server.listen({ port: PORT });

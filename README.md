@@ -10,3 +10,8 @@ First time running? Run `npm install`
 - schema: specifies the different graphql types
 - index.js: server instance
 - reset_db.sql: Creates required tables; included test entries.
+
+# Debug Notes
+
+- Fix issue with SequelizeConnectionError:
+  https://stackoverflow.com/questions/61350186/how-to-solve-the-database-connection-error-sequelizeconnectionerror
