@@ -1,12 +1,20 @@
 require("dotenv").config();
 const { Sequelize } = require("sequelize");
-const sequelize = new Sequelize(process.env.DB_URI, {
+
+const DB = process.env.DB || "photoshopify";
+const DB_USER = process.env.DB_USER || "postgres";
+const DB_PASSWORD = process.env.DB_PASSWORD || "pinto1248";
+const DB_HOST = process.env.DB_HOST || "localhost";
+const DB_PORT = process.env.DB_PORT || "5432";
+
+const sequelize = new Sequelize(DB, DB_USER, DB_PASSWORD, {
   dialect: "postgres",
-  host: process.env.DB_HOST,
+  host: DB_HOST,
+  port: DB_PORT,
   ssl: true,
   dialectOptions: {
     ssl: {
-      require: true,
+      require: false,
       rejectUnauthorized: false,
     },
   },
@@ -20,6 +28,5 @@ const test = async function () {
     console.log("Unable to connect to the database:", error);
   }
 };
-test();
 
-module.exports = sequelize;
+module.exports = { test, sequelize };
