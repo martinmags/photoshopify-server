@@ -1,9 +1,21 @@
+require("dotenv").config();
 const { ApolloServer } = require("apollo-server");
 const typeDefs = require("./schema");
 const resolvers = require("./resolvers");
 const { test } = require("./config/db");
-require("dotenv").config();
+const jwt = require("jsonwebtoken");
 
+const getUser = (token) => {
+  try {
+    console.log(token);
+    if (token) {
+      return jwt.verify(token, process.env.JWT_SECRET);
+    }
+    return null;
+  } catch (err) {
+    return null;
+  }
+};
 // Test Connection to Database
 test();
 
@@ -11,19 +23,27 @@ test();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  // context: ({ req }) => {
-  //   // Get user token from the headers
-  //   const token = req.headers.authorization || "";
+  cors: {
+    origin: "*",
+    credentials: true,
+  },
+  context: ({ req }) => {
+    // Get user token from the headers
+    const tokenWithBearer = req.headers.authorization || "";
+    const token = tokenWithBearer.split(" ")[1];
+    console.log("Req:", req.headers);
+    console.log("Tokenwithbearer:", tokenWithBearer);
+    console.log("Token:", token);
+    console.log();
+    // Try to retrieve a user with the token
+    const user = getUser(token);
 
-  //   // Try to retrieve a user with the token
-  //   const user = getUser(token);
+    // Block non existing user or failed user lookup
+    // if (!user) throw new AuthenticationError("you must be logged in");
 
-  //   // Block non existing user or failed user lookup
-  //   if (!user) throw new AuthenticationError("you must be logged in");
-
-  //   // add the user to the context
-  //   return { user };
-  // },
+    // add the user to the context
+    return { user };
+  },
 });
 
 // Run Server

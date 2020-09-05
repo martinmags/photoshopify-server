@@ -11,7 +11,13 @@ module.exports = `
     photos: [Photo]
   }
 
+  type LoginResponse {
+    token: String
+    user: User
+  }
+
   type Query {
+    currentUser: User!
     user(id: ID!): User
     users: [User]
   }
@@ -24,5 +30,9 @@ module.exports = `
       firstname: String, 
       lastname: String,
     ): User
+    loginUser(
+      username: String!,
+      password: String!
+    ): LoginResponse!
   }
 `;
