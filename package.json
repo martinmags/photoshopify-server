@@ -1,5 +1,5 @@
 {
-  "name": "apollo-server-sequelize-postgres",
+  "name": "photoshopify-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,17 +8,17 @@
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Martin Magsombol",
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^2.17.0",
-    "apollo-server-express": "^2.17.0",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
     "graphql": "^15.3.0",
     "graphql-tools": "^6.2.0",
     "pg": "^8.3.3",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.5"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
   }
 }
