@@ -1,4 +1,5 @@
 const User = require("../models/UserModel");
+const bcrypt = require("bcryptjs");
 
 module.exports = {
   Query: {
@@ -7,10 +8,11 @@ module.exports = {
   },
 
   Mutation: {
-    addUser: (parent, args) => {
-      let user = User.build({
+    registerUser: async (parent, args, context, info) => {
+      const hashedPassword = await bcrypt.hash(args.password, 10);
+      const user = await User.build({
         username: args.username,
-        password: args.password,
+        password: hashedPassword,
         email: args.email,
         firstname: args.firstname,
         lastname: args.lastname,

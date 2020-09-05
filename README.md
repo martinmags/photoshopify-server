@@ -11,8 +11,9 @@ First time running? Run `npm install`
 - index.js: server instance
 - reset_db.sql: Creates required tables; included test entries.
 
-# Debug Notes
+# Debug/Research Notes
 
+- apollo-server's context object is accessible at every level (use for db conn, data fetchers, user info)
 - Update heroku repo: "git push heroku master
 - Don't forget to add all .env variables into heroku app's setting config variables.
 - Fix issue with SequelizeConnectionError:

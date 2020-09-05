@@ -8,7 +8,23 @@ require("dotenv").config();
 test();
 
 // Create instance of ApolloServer
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  // context: ({ req }) => {
+  //   // Get user token from the headers
+  //   const token = req.headers.authorization || "";
+
+  //   // Try to retrieve a user with the token
+  //   const user = getUser(token);
+
+  //   // Block non existing user or failed user lookup
+  //   if (!user) throw new AuthenticationError("you must be logged in");
+
+  //   // add the user to the context
+  //   return { user };
+  // },
+});
 
 // Run Server
 const PORT = process.env.PORT || 4000;
