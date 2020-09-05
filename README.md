@@ -13,6 +13,7 @@ First time running? Run `npm install`
 
 # Debug Notes
 
+- Update heroku repo: "git push heroku master
 - Don't forget to add all .env variables into heroku app's setting config variables.
 - Fix issue with SequelizeConnectionError:
   https://stackoverflow.com/questions/61350186/how-to-solve-the-database-connection-error-sequelizeconnectionerror
