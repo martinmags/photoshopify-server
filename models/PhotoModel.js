@@ -23,6 +23,11 @@ const Photo = sequelize.define(
         createdAt: String,
       },
     ],
+    tags: [
+      {
+        type: DataTypes.STRING,
+      },
+    ],
   },
   {
     timestamps: false,
