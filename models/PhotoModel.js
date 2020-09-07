@@ -18,7 +18,7 @@ const Photo = sequelize.define(
       allowNull: false,
     },
     likes: {
-      type: DataTypes.Int,
+      type: DataTypes.INTEGER,
       defaultValue: 0,
     },
     tags: [
