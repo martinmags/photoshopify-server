@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS Photos (
   filepath TEXT NOT NULL,
   userId INT,
   tags TEXT[],
+  username VARCHAR(200) NOT NULL, 
   createdAt DATE NOT NULL DEFAULT NOW(),
   PRIMARY KEY(id),
   CONSTRAINT fk_photo

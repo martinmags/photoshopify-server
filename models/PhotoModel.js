@@ -13,6 +13,16 @@ const Photo = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    likes: [
+      {
+        type: DataTypes.STRING,
+        createdAt: String,
+      },
+    ],
   },
   {
     timestamps: false,

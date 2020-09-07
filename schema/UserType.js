@@ -12,24 +12,26 @@ module.exports = `
   }
 
   type LoginResponse {
-    token: String
     user: User
+    token: String
   }
 
   type Query {
     currentUser: User!
-    user(id: ID!): User
+    userById(id: ID!): User
     users: [User]
+    userByUsername(username: String!): User
   }
 
   type Mutation {
     registerUser(
       username: String!, 
-      password: String!, 
+      password: String!,
+      confirmPassword: String!,
       email: String!, 
       firstname: String, 
       lastname: String,
-    ): User
+    ): LoginResponse!
     loginUser(
       username: String!,
       password: String!

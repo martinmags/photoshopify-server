@@ -2,18 +2,17 @@ module.exports = `
   type Photo {
     id: ID!
     filepath: String!
-    user: User
+    username: String!
   }
 
   type Query {
-    photo(id: ID!): Photo
+    photoById(id: ID!): Photo
+    photosByUsername(username: String!): [Photo]
     photos: [Photo]
   }
 
   type Mutation {
-    addPhoto(
-      filepath: String!,
-      userid: ID!
-    ): Photo
+    addPhoto(filepath: String!): Photo
+    deletePhoto(id: ID!): String!
   }
 `;
