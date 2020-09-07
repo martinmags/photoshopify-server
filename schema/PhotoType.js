@@ -3,6 +3,8 @@ module.exports = `
     id: ID!
     filepath: String!
     username: String!
+    tags: [String]!
+    likes: Int!
   }
 
   type Query {

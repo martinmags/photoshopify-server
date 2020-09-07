@@ -43,6 +43,9 @@ module.exports = {
     addPhoto: async (_, { filepath }, context) => {
       // Verify User
       const { id, username } = checkAuth(context);
+
+      // Detect Tags
+
       const photo = await Photo.build({
         filepath,
         userid: id,
@@ -53,7 +56,6 @@ module.exports = {
     },
     deletePhoto: async (_, { id }, context) => {
       const user = checkAuth(context);
-
       try {
         const photo = await Photo.findByPk(id);
         if (user.username === photo.username) {
