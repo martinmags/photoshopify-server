@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS Users (
 
 CREATE TABLE IF NOT EXISTS Photos (
   id SERIAL NOT NULL,
-  filepath TEXT NOT NULL,
+  filePublicId TEXT NOT NULL,
   userId INT,
   tags TEXT[],
   likes INTEGER DEFAULT 0,

@@ -36,3 +36,4 @@ First time running? Run `npm install`
 - Don't forget to add all .env variables into heroku app's setting config variables.
 - Fix issue with SequelizeConnectionError:
   https://stackoverflow.com/questions/61350186/how-to-solve-the-database-connection-error-sequelizeconnectionerror
+- Even if the column name in the database is camel cased, sequelize has to read the model file with lowercased column names or else a fat error

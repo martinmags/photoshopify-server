@@ -1,7 +1,7 @@
 module.exports = `
   type Photo {
     id: ID!
-    filepath: String!
+    filepublicid: String!
     username: String!
     tags: [String]!
     likes: Int!
@@ -14,7 +14,7 @@ module.exports = `
   }
 
   type Mutation {
-    addPhoto(filepath: String!): Photo
+    addPhoto(fileStr: String!): Photo
     deletePhoto(id: ID!): String!
   }
 `;

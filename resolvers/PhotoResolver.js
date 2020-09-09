@@ -2,6 +2,7 @@ const Photo = require("../models/PhotoModel");
 const User = require("../models/UserModel");
 const checkAuth = require("../util/check-auth");
 const { AuthenticationError } = require("apollo-server");
+const { cloudinary } = require("../util/cloudinary");
 
 module.exports = {
   Query: {
@@ -40,16 +41,31 @@ module.exports = {
   },
 
   Mutation: {
-    addPhoto: async (_, { filepath }, context) => {
+    addPhoto: async (_, { fileStr }, context) => {
       // Verify User
-      const { id, username } = checkAuth(context);
+      const user = checkAuth(context);
+
+      // Validate user input
+      if (fileStr.trim() === "") {
+        throw new Error("File must be provided");
+      }
+
+      // Upload to Cloudinary
+      const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
+        upload_preset: "photoshopify",
+      });
+
+      // Extract the public_id from cloudinary
+      const filepublicid = uploadedResponse.public_id;
 
       // Detect Tags
+      const tags = [];
 
       const photo = await Photo.build({
-        filepath,
-        userid: id,
-        username,
+        filepublicid,
+        userid: user.id,
+        username: user.username,
+        tags,
       });
       await photo.save();
       return photo;

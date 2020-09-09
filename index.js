@@ -5,7 +5,7 @@ const resolvers = require("./resolvers");
 const { test } = require("./config/db");
 const { verify, jwt } = require("jsonwebtoken");
 const express = require("express");
-// const { cookieParser } = require("cookie-parser");
+const { cloudinary } = require("./util/cloudinary");
 
 // Test Connection to Database
 test();
@@ -23,15 +23,34 @@ const server = new ApolloServer({
 
 const app = express();
 
-// Apply any middleware
-// app.use(cookieParser())
-// app.use((req, _, next) => {
-//   const accessToken = req.cookies("access-token");
-//   const data = verify(accessToken, process.env.ACCESS_TOKEN_SECRET)
-//   req.userId = data.userId
-//   console.log(req.cookies);
-//   next();
-// });
+// CLOUDINARY API
+// Increase limit of image uploads to 50mb
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.post("/api/upload", async (req, res) => {
+  try {
+    const fileStr = req.body.data;
+    const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
+      upload_preset: "photoshopify",
+    });
+    console.log(uploadedResponse);
+    res.json({ msg: "SUCCESSFULLY UPLOADED" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ err: "Something went wrong" });
+  }
+});
+
+app.get("/api/images", async (req, res) => {
+  const { resources } = await cloudinary.search
+    .expression("folder:photoshopify")
+    .sort_by("public_id", "desc")
+    .max_results(30)
+    .execute();
+  const publicIds = resources.map((file) => file.public_id);
+  res.send(publicIds);
+});
+
 server.applyMiddleware({ app });
 
 // Run Server

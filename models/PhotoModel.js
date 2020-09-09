@@ -4,7 +4,7 @@ const { sequelize } = require("../config/db");
 const Photo = sequelize.define(
   "Photo",
   {
-    filepath: {
+    filepublicid: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,

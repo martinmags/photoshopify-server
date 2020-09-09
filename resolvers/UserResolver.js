@@ -33,7 +33,7 @@ module.exports = {
   Mutation: {
     registerUser: async (
       parent,
-      { username, email, password, confirmPassword, firstname, lastname },
+      { username, email, firstname, lastname, password, confirmPassword },
       context,
       info
     ) => {
@@ -42,9 +42,7 @@ module.exports = {
         username,
         email,
         password,
-        confirmPassword,
-        firstname,
-        lastname
+        confirmPassword
       );
       if (!valid) {
         throw new UserInputError("Errors:", { errors });
@@ -72,10 +70,10 @@ module.exports = {
       // Build user
       const user = await User.build({
         username,
-        password: hashedPassword,
         email,
         firstname,
         lastname,
+        password: hashedPassword,
       });
       await user.save();
 
