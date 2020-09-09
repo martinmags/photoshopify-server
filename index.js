@@ -6,6 +6,7 @@ const { test } = require("./config/db");
 const { verify, jwt } = require("jsonwebtoken");
 const express = require("express");
 const { cloudinary } = require("./util/cloudinary");
+const cors = require("cors");
 
 // Test Connection to Database
 test();
@@ -51,6 +52,8 @@ app.get("/api/images", async (req, res) => {
   res.send(publicIds);
 });
 
+// CORS
+app.use(cors());
 server.applyMiddleware({ app });
 
 // Run Server
