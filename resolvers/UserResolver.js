@@ -92,7 +92,6 @@ module.exports = {
 
       // Check for user and password
       const user = await User.findOne({ where: { username } });
-      console.log(user);
       if (!user) {
         errors.general = "User not found";
         throw new UserInputError("User not found", { errors });
