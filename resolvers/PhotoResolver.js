@@ -51,9 +51,11 @@ module.exports = {
       }
 
       // Upload to Cloudinary
+
       const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
         upload_preset: "photoshopify",
       });
+      console.log("UPLOADED:", uploadedResponse);
 
       // Extract the public_id from cloudinary
       const filepublicid = uploadedResponse.public_id;
